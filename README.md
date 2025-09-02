@@ -4,8 +4,6 @@
 
 A modern React application that allows users to discover and explore books using the OpenLibrary API. Search for books, build your wishlist, and explore curated book collections across different genres.
 
-![Book Finder Demo](https://via.placeholder.com/800x400/667eea/ffffff?text=Book+Finder+App)
-
 ## ✨ Features
 
 ### 🔍 **Smart Search**
@@ -237,22 +235,19 @@ npm run build
 - OpenLibrary API occasionally has rate limiting
 - Search results are limited to available OpenLibrary data
 
-## 📄 **License**
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🙏 **Acknowledgments**
 
 - [OpenLibrary](https://openlibrary.org/) for providing the free book data API
 - [Create React App](https://create-react-app.dev/) for the development setup
-- The React community for excellent documentation and resources
+- Claude & Claude Code LLM for helping in rectifying errors and adding new features
+
 
 ## 📧 **Contact**
 
 If you have any questions or suggestions, feel free to reach out:
 
-- GitHub: [Your GitHub Profile](https://github.com/yourusername)
-- Email: your.email@example.com
+- GitHub: [My GitHub Profile](https://github.com/sarathsaimanikanta)
+- Email: sarath2004bolisetty@gmail.com
 
 ---
 

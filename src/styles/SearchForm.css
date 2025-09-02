@@ -85,7 +85,7 @@
 
 .header-search .search-button:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 12px rgba(6, 6, 193, 0.3);
 }
 
 .search-button:active:not(:disabled) {
@@ -182,10 +182,6 @@
   .header-mobile-search {
     display: block;
   }
-  
-  .search-form-container:not(.header-search) {
-    display: none;
-  }
 }
 
 @media (max-width: 640px) {
@@ -207,7 +203,7 @@
 }
 
 @media (max-width: 480px) {
-  .search-form-container:not(.header-search) {
+  .search-form-container {
     padding: 1rem 0;
   }
   

@@ -1,5 +1,6 @@
 // src/components/SearchForm.js
 import React, { useState, useEffect, useCallback } from 'react';
+import { SearchIcon, SpinnerIcon } from './Icons';
 import '../styles/SearchForm.css';
 
 const SearchForm = ({ onSearch, loading }) => {
@@ -93,12 +94,12 @@ const SearchForm = ({ onSearch, loading }) => {
           >
             {loading ? (
               <>
-                <span className="button-spinner"></span>
+                <SpinnerIcon size={16} className="button-spinner" />
                 Searching...
               </>
             ) : (
               <>
-                <span className="search-icon">🔍</span>
+                <SearchIcon size={18} className="search-icon" />
                 Search
               </>
             )}
@@ -114,7 +115,7 @@ const SearchForm = ({ onSearch, loading }) => {
                 className="suggestion-item"
                 onClick={() => selectSuggestion(suggestion)}
               >
-                <span className="suggestion-icon">🔍</span>
+                <SearchIcon size={14} className="suggestion-icon" />
                 {suggestion}
               </div>
             ))}

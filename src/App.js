@@ -3,9 +3,12 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import SearchForm from './components/SearchForm';
 import BookCard from './components/BookCard';
+import BookDetailModal from './components/BookDetailModal';
+import SearchFilters from './components/SearchFilters';
 import FeaturedSections from './components/FeaturedSections';
 import Wishlist from './components/Wishlist';
 import Profile from './components/Profile';
+import { SpinnerIcon, WarningIcon, NoResultsIcon } from './components/Icons';
 import { searchBooks } from './utils/api';
 import './App.css';
 
@@ -18,8 +21,17 @@ function App() {
   const [currentView, setCurrentView] = useState('home'); // 'home', 'wishlist', 'profile'
   const [wishlist, setWishlist] = useState([]);
   const [totalSearches, setTotalSearches] = useState(0);
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchFilters, setSearchFilters] = useState({
+    sortBy: 'relevance',
+    genre: '',
+    yearFrom: '',
+    yearTo: '',
+    language: 'en'
+  });
 
-  const handleSearch = async (query) => {
+  const handleSearch = async (query, customFilters = null) => {
     if (!query.trim()) {
       setError('Please enter a book title to search');
       return;
@@ -33,17 +45,26 @@ function App() {
     setTotalSearches(prev => prev + 1);
     
     try {
-      const results = await searchBooks(query);
+      const filtersToUse = customFilters || searchFilters;
+      const results = await searchBooks(query, filtersToUse);
       setBooks(results);
       
       if (results.length === 0) {
-        setError('No books found for your search. Try different keywords.');
+        setError('No books found for your search. Try adjusting your filters or keywords.');
       }
     } catch (err) {
       setError('Failed to search books. Please try again.');
       console.error('Search error:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleFiltersChange = (newFilters) => {
+    setSearchFilters(newFilters);
+    // If we have an active search, re-run it with new filters
+    if (hasSearched && searchQuery.trim()) {
+      handleSearch(searchQuery, newFilters);
     }
   };
 
@@ -88,6 +109,16 @@ function App() {
     return wishlist.some(item => (item.key || item.title) === bookKey);
   };
 
+  const handleBookClick = (book) => {
+    setSelectedBook(book);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedBook(null);
+  };
+
   const renderContent = () => {
     switch (currentView) {
       case 'wishlist':
@@ -95,6 +126,7 @@ function App() {
           <Wishlist 
             wishlistBooks={wishlist} 
             onWishlistToggle={handleWishlistToggle}
+            onBookClick={handleBookClick}
           />
         );
       
@@ -111,9 +143,17 @@ function App() {
           <>
             <SearchForm onSearch={handleSearch} loading={loading} />
             
+            {/* Search Filters - only show when there are search results or filters are active */}
+            {(hasSearched || Object.values(searchFilters).some(v => v !== '' && v !== 'relevance' && v !== 'en')) && (
+              <SearchFilters 
+                onFiltersChange={handleFiltersChange}
+                initialFilters={searchFilters}
+              />
+            )}
+            
             {loading && (
               <div className="loading-container">
-                <div className="loading-spinner"></div>
+                <SpinnerIcon size={40} className="loading-spinner" />
                 <p>Searching for books...</p>
               </div>
             )}
@@ -121,7 +161,7 @@ function App() {
             {error && (
               <div className="error-container">
                 <div className="error-message">
-                  <span className="error-icon">⚠️</span>
+                  <WarningIcon size={20} className="error-icon" />
                   {error}
                 </div>
               </div>
@@ -130,9 +170,9 @@ function App() {
             {hasSearched && !loading && !error && books.length === 0 && (
               <div className="no-results">
                 <div className="no-results-content">
-                  <span className="no-results-icon">📚</span>
+                  <NoResultsIcon size={48} className="no-results-icon" />
                   <h3>No books found</h3>
-                  <p>Try searching with different keywords</p>
+                  <p>Try searching with different keywords or adjust your filters</p>
                 </div>
               </div>
             )}
@@ -149,6 +189,7 @@ function App() {
                       book={book}
                       onWishlistToggle={handleWishlistToggle}
                       isInWishlist={isBookInWishlist(book)}
+                      onBookClick={handleBookClick}
                     />
                   ))}
                 </div>
@@ -157,7 +198,11 @@ function App() {
             
             {/* Show featured sections only when no search has been performed or no results */}
             {(!hasSearched || (hasSearched && books.length === 0 && !loading && !error)) && (
-              <FeaturedSections onWishlistToggle={handleWishlistToggle} isBookInWishlist={isBookInWishlist} />
+              <FeaturedSections 
+                onWishlistToggle={handleWishlistToggle} 
+                isBookInWishlist={isBookInWishlist}
+                onBookClick={handleBookClick}
+              />
             )}
           </>
         );
@@ -178,6 +223,15 @@ function App() {
           {renderContent()}
         </div>
       </main>
+      
+      {/* Book Detail Modal */}
+      <BookDetailModal
+        book={selectedBook}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onWishlistToggle={handleWishlistToggle}
+        isInWishlist={selectedBook ? isBookInWishlist(selectedBook) : false}
+      />
     </div>
   );
 }

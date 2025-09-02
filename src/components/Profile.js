@@ -1,5 +1,6 @@
 // src/components/Profile.js
 import React, { useState } from 'react';
+import { UserIcon, EditIcon, CheckIcon, CancelIcon, HeartIcon, SearchIcon, BookIcon } from './Icons';
 import '../styles/Profile.css';
 
 const Profile = ({ wishlistCount, totalSearches }) => {
@@ -39,13 +40,16 @@ const Profile = ({ wishlistCount, totalSearches }) => {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <h2 className="profile-title">👤 My Profile</h2>
+        <h2 className="profile-title">
+          <UserIcon size={28} className="profile-title-icon" />
+          My Profile
+        </h2>
       </div>
       
       <div className="profile-content">
         <div className="profile-card">
           <div className="profile-avatar">
-            <span className="avatar-icon">👤</span>
+            <UserIcon size={48} className="avatar-icon" />
           </div>
           
           <div className="profile-info">
@@ -60,7 +64,8 @@ const Profile = ({ wishlistCount, totalSearches }) => {
                   <span className="detail-label">Favorite genre:</span> {userInfo.favoriteGenre}
                 </p>
                 <button className="edit-button" onClick={handleEdit}>
-                  ✏️ Edit Profile
+                  <EditIcon size={16} />
+                  Edit Profile
                 </button>
               </>
             ) : (
@@ -91,10 +96,12 @@ const Profile = ({ wishlistCount, totalSearches }) => {
                 />
                 <div className="edit-buttons">
                   <button className="save-button" onClick={handleSave}>
-                    ✅ Save
+                    <CheckIcon size={16} />
+                    Save
                   </button>
                   <button className="cancel-button" onClick={handleCancel}>
-                    ❌ Cancel
+                    <CancelIcon size={16} />
+                    Cancel
                   </button>
                 </div>
               </div>
@@ -104,7 +111,7 @@ const Profile = ({ wishlistCount, totalSearches }) => {
         
         <div className="profile-stats">
           <div className="stat-card">
-            <div className="stat-icon">❤️</div>
+            <HeartIcon size={32} className="stat-icon" />
             <div className="stat-info">
               <h4 className="stat-number">{wishlistCount}</h4>
               <p className="stat-label">Books in Wishlist</p>
@@ -112,7 +119,7 @@ const Profile = ({ wishlistCount, totalSearches }) => {
           </div>
           
           <div className="stat-card">
-            <div className="stat-icon">🔍</div>
+            <SearchIcon size={32} className="stat-icon" />
             <div className="stat-info">
               <h4 className="stat-number">{totalSearches}</h4>
               <p className="stat-label">Total Searches</p>
@@ -120,7 +127,7 @@ const Profile = ({ wishlistCount, totalSearches }) => {
           </div>
           
           <div className="stat-card">
-            <div className="stat-icon">📚</div>
+            <BookIcon size={32} className="stat-icon" />
             <div className="stat-info">
               <h4 className="stat-number">10+</h4>
               <p className="stat-label">Genres Explored</p>

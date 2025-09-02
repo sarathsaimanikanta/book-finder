@@ -1,15 +1,16 @@
 // src/components/BookSection.js
 import React from 'react';
 import BookCard from './BookCard';
+import { SpinnerIcon, ArrowRightIcon } from './Icons';
 import '../styles/BookSection.css';
 
-const BookSection = ({ title, books, loading, onWishlistToggle, isBookInWishlist }) => {
+const BookSection = ({ title, books, loading, onWishlistToggle, isBookInWishlist, onBookClick }) => {
   if (loading) {
     return (
       <div className="book-section">
         <h2 className="section-title">{title}</h2>
         <div className="loading-container-horizontal">
-          <div className="loading-spinner-small"></div>
+          <SpinnerIcon size={24} className="loading-spinner-small" />
           <span>Loading {title.replace(/^[^\s]+\s/, '')}...</span>
         </div>
       </div>
@@ -39,12 +40,15 @@ const BookSection = ({ title, books, loading, onWishlistToggle, isBookInWishlist
                 isHorizontal={true}
                 onWishlistToggle={onWishlistToggle}
                 isInWishlist={isBookInWishlist ? isBookInWishlist(book) : false}
+                onBookClick={onBookClick}
               />
             </div>
           ))}
         </div>
         {books.length > 3 && (
-          <div className="scroll-indicator">→</div>
+          <div className="scroll-indicator">
+            <ArrowRightIcon size={20} />
+          </div>
         )}
       </div>
     </div>

@@ -1,5 +1,6 @@
 // src/components/Header.js
 import React from 'react';
+import { HomeIcon, HeartIcon, UserIcon, BookIcon } from './Icons';
 import '../styles/Header.css';
 
 const Header = ({ onHomeClick, onWishlistClick, onProfileClick, wishlistCount }) => {
@@ -10,7 +11,7 @@ const Header = ({ onHomeClick, onWishlistClick, onProfileClick, wishlistCount })
           {/* Left side - Logo */}
           <div className="header-left">
             <div className="logo" onClick={onHomeClick}>
-              <span className="header-icon">📚</span>
+              <BookIcon size={32} className="header-icon" ariaLabel="Book Finder Logo" />
               <span className="logo-text">Book Finder</span>
             </div>
           </div>
@@ -18,16 +19,16 @@ const Header = ({ onHomeClick, onWishlistClick, onProfileClick, wishlistCount })
           {/* Right side - Navigation */}
           <div className="header-right">
             <button className="nav-button" onClick={onHomeClick}>
-              <span className="nav-icon">🏠</span>
+              <HomeIcon size={20} className="nav-icon" />
               <span className="nav-text">Home</span>
             </button>
             <button className="nav-button" onClick={onWishlistClick}>
-              <span className="nav-icon">❤️</span>
+              <HeartIcon size={20} className="nav-icon" />
               <span className="nav-text">Wishlist</span>
               {wishlistCount > 0 && <span className="wishlist-indicator">{wishlistCount}</span>}
             </button>
             <button className="nav-button" onClick={onProfileClick}>
-              <span className="nav-icon">👤</span>
+              <UserIcon size={20} className="nav-icon" />
               <span className="nav-text">Profile</span>
             </button>
           </div>

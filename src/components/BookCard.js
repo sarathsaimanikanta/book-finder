@@ -1,8 +1,9 @@
 // src/components/BookCard.js
 import React from 'react';
+import { HeartIcon, HeartFilledIcon, BookIcon } from './Icons';
 import '../styles/BookCard.css';
 
-const BookCard = ({ book, isHorizontal = false, onWishlistToggle, isInWishlist = false }) => {
+const BookCard = ({ book, isHorizontal = false, onWishlistToggle, isInWishlist = false, onBookClick }) => {
   const {
     title,
     author_name,
@@ -46,8 +47,15 @@ const BookCard = ({ book, isHorizontal = false, onWishlistToggle, isInWishlist =
 
   const cardClassName = isHorizontal ? 'book-card book-card-horizontal' : 'book-card';
 
+  // Handle card click
+  const handleCardClick = () => {
+    if (onBookClick) {
+      onBookClick(book);
+    }
+  };
+
   return (
-    <div className={cardClassName}>
+    <div className={cardClassName} onClick={handleCardClick} style={{ cursor: onBookClick ? 'pointer' : 'default' }}>
       <div className="book-cover-container">
         {/* Wishlist button */}
         {onWishlistToggle && (
@@ -56,7 +64,11 @@ const BookCard = ({ book, isHorizontal = false, onWishlistToggle, isInWishlist =
             onClick={handleWishlistClick}
             title={isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
           >
-            {isInWishlist ? '❤️' : '🤍'}
+            {isInWishlist ? (
+              <HeartFilledIcon size={20} />
+            ) : (
+              <HeartIcon size={20} />
+            )}
           </button>
         )}
         
@@ -69,13 +81,13 @@ const BookCard = ({ book, isHorizontal = false, onWishlistToggle, isInWishlist =
               onError={handleImageError}
             />
             <div className="book-cover-placeholder" style={{ display: 'none' }}>
-              <span className="cover-placeholder-icon">📖</span>
+              <BookIcon size={48} className="cover-placeholder-icon" ariaLabel="No cover available" />
               <span className="cover-placeholder-text">No Cover</span>
             </div>
           </>
         ) : (
           <div className="book-cover-placeholder">
-            <span className="cover-placeholder-icon">📖</span>
+            <BookIcon size={48} className="cover-placeholder-icon" ariaLabel="No cover available" />
             <span className="cover-placeholder-text">No Cover</span>
           </div>
         )}

@@ -1,33 +1,54 @@
-import React from 'react';
+// src/components/SearchForm.js
+import React, { useState } from 'react';
 import '../styles/SearchForm.css';
 
-const SearchForm = ({ searchTerm, setSearchTerm, onSubmit, loading }) => {
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
+const SearchForm = ({ onSearch, loading }) => {
+  const [query, setQuery] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (query.trim() && !loading) {
+      onSearch(query.trim());
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
   };
 
   return (
-    <form onSubmit={onSubmit} className="search-form">
-      <div className="search-container">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleChange}
-          placeholder="Enter book title..."
-          className="search-input"
-          disabled={loading}
-          aria-label="Search books by title"
-        />
-        <button
-          type="submit"
-          className="search-button"
-          disabled={loading || !searchTerm.trim()}
-          aria-label="Search button"
-        >
-          {loading ? 'Searching...' : 'Search'}
-        </button>
-      </div>
-    </form>
+    <div className="search-form-container">
+      <form className="search-form" onSubmit={handleSubmit}>
+        <div className="search-input-container">
+          <input
+            type="text"
+            value={query}
+            onChange={handleInputChange}
+            placeholder="Enter book title..."
+            className="search-input"
+            disabled={loading}
+            required
+          />
+          <button 
+            type="submit" 
+            className={`search-button ${loading ? 'loading' : ''}`}
+            disabled={loading || !query.trim()}
+          >
+            {loading ? (
+              <>
+                <span className="button-spinner"></span>
+                Searching...
+              </>
+            ) : (
+              <>
+                <span className="search-icon">🔍</span>
+                Search
+              </>
+            )}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import '../styles/BookCard.css';
 
-const BookCard = ({ book }) => {
+const BookCard = ({ book, isHorizontal = false }) => {
   const {
     title,
     author_name,
@@ -36,8 +36,10 @@ const BookCard = ({ book }) => {
     e.target.nextSibling.style.display = 'flex';
   };
 
+  const cardClassName = isHorizontal ? 'book-card book-card-horizontal' : 'book-card';
+
   return (
-    <div className="book-card">
+    <div className={cardClassName}>
       <div className="book-cover-container">
         {cover_i ? (
           <>
@@ -75,7 +77,7 @@ const BookCard = ({ book }) => {
           </p>
         )}
         
-        {getISBN() && (
+        {!isHorizontal && getISBN() && (
           <p className="book-isbn">
             <span className="isbn-label">ISBN:</span> {getISBN()}
           </p>

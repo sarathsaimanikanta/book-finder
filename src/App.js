@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import SearchForm from './components/SearchForm';
 import BookCard from './components/BookCard';
+import FeaturedSections from './components/FeaturedSections';
 import { searchBooks } from './utils/api';
 import './App.css';
 
@@ -84,6 +85,11 @@ function App() {
                 ))}
               </div>
             </div>
+          )}
+          
+          {/* Show featured sections only when no search has been performed or no results */}
+          {(!hasSearched || (hasSearched && books.length === 0 && !loading && !error)) && (
+            <FeaturedSections />
           )}
         </div>
       </main>

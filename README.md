@@ -4,6 +4,11 @@
 
 A modern React application that allows users to discover and explore books using the OpenLibrary API. Search for books, build your wishlist, and explore curated book collections across different genres.
 
+## 🌐 Live Demo
+
+I deployed this project repo in **CodeSandbox** 🚀  
+👉 [View My Project Here](https://q9n92n-3000.csb.app/)
+
 ## ✨ Features
 
 ### 🔍 **Smart Search**

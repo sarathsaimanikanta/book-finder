@@ -4,7 +4,7 @@ import BookSection from './BookSection';
 import { getBooksBySubject, getTrendingBooks } from '../utils/api';
 import '../styles/FeaturedSections.css';
 
-const FeaturedSections = () => {
+const FeaturedSections = ({ onWishlistToggle, isBookInWishlist }) => {
   const [sections, setSections] = useState({});
   const [loadingStates, setLoadingStates] = useState({});
 
@@ -79,6 +79,8 @@ const FeaturedSections = () => {
           title={section.title}
           books={sections[section.key] || []}
           loading={loadingStates[section.key] || false}
+          onWishlistToggle={onWishlistToggle}
+          isBookInWishlist={isBookInWishlist}
         />
       ))}
     </div>

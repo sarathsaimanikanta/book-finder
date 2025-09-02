@@ -57,6 +57,38 @@
   overflow: hidden;
 }
 
+.wishlist-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  z-index: 2;
+}
+
+.wishlist-button:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.wishlist-button.active {
+  background: rgba(255, 223, 223, 0.95);
+}
+
+.wishlist-button.active:hover {
+  background: rgba(255, 182, 182, 1);
+}
+
 .book-cover {
   width: 100%;
   height: 100%;
@@ -209,5 +241,13 @@
   
   .book-card-horizontal .cover-placeholder-text {
     font-size: 0.7rem;
+  }
+  
+  .wishlist-button {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    top: 0.5rem;
+    right: 0.5rem;
   }
 }

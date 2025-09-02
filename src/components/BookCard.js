@@ -2,7 +2,7 @@
 import React from 'react';
 import '../styles/BookCard.css';
 
-const BookCard = ({ book, isHorizontal = false }) => {
+const BookCard = ({ book, isHorizontal = false, onWishlistToggle, isInWishlist = false }) => {
   const {
     title,
     author_name,
@@ -27,7 +27,7 @@ const BookCard = ({ book, isHorizontal = false }) => {
   // Get display ISBN
   const getISBN = () => {
     if (!isbn || isbn.length === 0) return null;
-    return isbn;
+    return isbn[0]; // Show first ISBN
   };
 
   // Handle image error
@@ -36,11 +36,30 @@ const BookCard = ({ book, isHorizontal = false }) => {
     e.target.nextSibling.style.display = 'flex';
   };
 
+  // Handle wishlist toggle
+  const handleWishlistClick = (e) => {
+    e.stopPropagation();
+    if (onWishlistToggle) {
+      onWishlistToggle(book);
+    }
+  };
+
   const cardClassName = isHorizontal ? 'book-card book-card-horizontal' : 'book-card';
 
   return (
     <div className={cardClassName}>
       <div className="book-cover-container">
+        {/* Wishlist button */}
+        {onWishlistToggle && (
+          <button 
+            className={`wishlist-button ${isInWishlist ? 'active' : ''}`}
+            onClick={handleWishlistClick}
+            title={isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+          >
+            {isInWishlist ? '❤️' : '🤍'}
+          </button>
+        )}
+        
         {cover_i ? (
           <>
             <img

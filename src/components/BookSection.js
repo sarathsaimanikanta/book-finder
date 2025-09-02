@@ -3,7 +3,7 @@ import React from 'react';
 import BookCard from './BookCard';
 import '../styles/BookSection.css';
 
-const BookSection = ({ title, books, loading }) => {
+const BookSection = ({ title, books, loading, onWishlistToggle, isBookInWishlist }) => {
   if (loading) {
     return (
       <div className="book-section">
@@ -34,7 +34,12 @@ const BookSection = ({ title, books, loading }) => {
         <div className="books-horizontal-container">
           {books.map((book, index) => (
             <div key={book.key || index} className="book-item-horizontal">
-              <BookCard book={book} isHorizontal={true} />
+              <BookCard 
+                book={book} 
+                isHorizontal={true}
+                onWishlistToggle={onWishlistToggle}
+                isInWishlist={isBookInWishlist ? isBookInWishlist(book) : false}
+              />
             </div>
           ))}
         </div>

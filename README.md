@@ -210,11 +210,6 @@ Test coverage includes:
 npm run build
 ```
 
-### **Deployment Options**
-- **Netlify**: Connect your GitHub repo for automatic deployments
-- **Vercel**: Zero-config deployment with GitHub integration
-- **GitHub Pages**: Use `npm run build` and deploy the build folder
-
 ## 🤝 **Contributing**
 
 1. Fork the repository
@@ -229,7 +224,6 @@ npm run build
 - [ ] Reading progress tracking
 - [ ] Book recommendations based on wishlist
 - [ ] Social features (share books, reviews)
-- [ ] Advanced search filters (genre, year, rating)
 - [ ] Offline mode with cached data
 - [ ] User authentication and cloud sync
 - [ ] Reading list export functionality
@@ -244,7 +238,7 @@ npm run build
 
 - [OpenLibrary](https://openlibrary.org/) for providing the free book data API
 - [Create React App](https://create-react-app.dev/) for the development setup
-- Claude & Claude Code LLM for helping in rectifying errors and adding new features
+- Claude, Claude Code & Preplexcity LLM for helping in rectifying errors and adding new features
 
 
 ## 📧 **Contact**
